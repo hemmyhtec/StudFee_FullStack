@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Dashboard UI
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+    script.
+      $(function() {
+        $('#create-fee-btn').click(function() {
+          $('#content').hide();
+          $('#create-form').show();
+        });
+        $('#payment-list-link').click(function() {
+          $('#content').hide();
+          $('#payment-table').show();
+        });
+      });
+  body
+    header
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href="#") StudFee
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        div.collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ml-auto
+            li.nav-item.active
+              a.nav-link(href="./dashboard") Home
+              span.sr-only (current)
+            li.nav-item
+              a.nav-link#create-fee-btn(href="/create-form") Create Fee
+            li.nav-item
+              a.nav-link#payment-list-link(href="/admin/paymentlist") Levy List
+            li.nav-item
+              form(action="/logout", method="post")
+                button.btn.btn-primary.nav-item Logout
+    section.container
+      .card.mt-4
+        .card-header
+          h3.text-center.font-weight-bold.my-4 Paid Users List
+        .card-body
+          table.table.table-hover
+            thead
+              tr
+                th User Name
+                th User Email
+                th Levy Name
+                th Fee Amount
+                th Payment Status
+                th Reference Id
+            tbody
+              != paidUsersTable
+        section.container#create-form(style="display: none;")
+          include create-form.pug
+        footer.footer.py-3
+          p.text-center Copyright © 2023
